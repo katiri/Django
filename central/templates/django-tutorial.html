@@ -1,0 +1,54 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block body %}
+    <div class="container my-5">
+        <div class="row">
+            <div class="col">
+                <ul class="list-group">
+                    <li class="list-group-item bg-light">01 - Criar novo projeto no PyCharm com virtual env</li>
+                    <li class="list-group-item bg-light">02 - Instalar Django -> pip install django</li>
+                    <li class="list-group-item bg-light">03 - Criar Projeto -> django-admin.exe startproject nome_site .</li>
+                    <li class="list-group-item bg-light">04 - Configurar o settings.py:</li>
+                    <li class="list-group-item pl-5">
+                        LANGUAGE_CODE = 'pt-br'<br>
+                        <br>
+                        TIME_ZONE = 'America/Sao_Paulo'<br>
+                        <br>
+                        STATIC_URL = '/static/'<br>
+                        STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')<br>
+                        MEDIA_URL = '/media/'<br>
+                        MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
+                    </li>
+                    <li class="list-group-item bg-light">05 - Criar o banco de dados (SQLite3) -> python manage.py migrate</li>
+                    <li class="list-group-item bg-light">06 - Criar aplicação -> python manage.py statapp nome-da-aplicação</li>
+                    <li class="list-group-item bg-light">07 - Adicionar aplicação ao settings.py:</li>
+                    <li class="list-group-item pl-5">
+                        INSTALLED_APPS = [<br>
+                            &nbsp;&nbsp;&nbsp;&nbsp;'...',<br>
+                            &nbsp;&nbsp;&nbsp;&nbsp;'nome_aplicação',<br>
+                        ]
+                    </li>
+                    <li class="list-group-item bg-light">08 - Criar modelo em models.py (tabela no banco de dados):</li>
+                    <li class="list-group-item pl-5">
+                        <a alt="Documentação para a criação de modelos" href="https://docs.djangoproject.com/en/3.0/topics/db/models/" target="_blank">
+                            Documentação Django para modelos
+                        </a>
+                        <a alt="Documentação para a campos do banco de dados" href="https://docs.djangoproject.com/en/3.0/ref/models/fields/#field-types" target="_blank">
+                            Documentação para a campos do banco de dados
+                        </a>
+                    </li>
+                    <li class="list-group-item bg-light">09 - Criar versão do banco de dados com modelo -> python manage.py makemigrations nome-da-aplicação</li>
+                    <li class="list-group-item bg-light">10 - Adicionar versão criada ao banco de dados -> python manage.py migrate nome_aplicação</li>
+                    <li class="list-group-item bg-light">11 - Adicionar modelo ao aplicatico de administração em admin.py:</li>
+                    <li class="list-group-item pl-5">
+                        <a alt="Documentação para adicionar modelos no admin.py" href="https://docs.djangoproject.com/en/3.0/ref/contrib/admin/" target="_blank">
+                            Documentação para adicionar modelos no admin.py
+                        </a>
+                    </li>
+                    <li class="list-group-item bg-light">12 - Criar um super usuário para logar no aplicativo de administração -> python manage.py createsuperuser</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+{% endblock %}
