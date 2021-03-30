@@ -1,0 +1,21 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block body %}
+    <div class="container my-5">
+        <div class="row">
+            <div class="col">
+                <h1>Exemplos</h1>
+                    {% for exemplo in object_list %}
+                        <div class="border px-3 ">
+                            <a alt="Ver exemplo {{ exemplo.slug }}" href="{% url 'LendoBancoItem' exemplo.slug %}">Ver item</a>
+                            <br>
+                            {{ exemplo.chave_unica }}
+                        </div>
+                    {% empty %}
+                        <div>Nenhum exemplo ainda.</div>
+                    {% endfor %}
+            </div>
+        </div>
+    </div>
+{% endblock %}

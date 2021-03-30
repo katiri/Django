@@ -1,0 +1,35 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block body %}
+    <div class="container my-5">
+        <div class="row">
+            <div class="col">
+                <a alt="Voltar" href="{% url 'LendoBanco' %}">Voltar</a><br>
+                {{ object.chave_unica }}<br>
+                {{ object.inteiro }}<br>
+                {{ object.grande_inteiro }}<br>
+                {{ object.pequeno_inteiro }}<br>
+                {{ object.inteiro_positivo }}<br>
+                {{ object.grande_inteiro_positivo }}<br>
+                {{ object.pequeno_inteiro_positivo }}<br>
+                {{ object.num_float }}<br>
+                {{ object.num_decimal }}<br>
+                {{ object.binario }}<br>
+                {{ object.booleano }}<br>
+                {{ object.frase }}<br>
+                {{ object.texto }}<br>
+                {{ object.email }}<br>
+                {{ object.link }}<br>
+                {{ object.slug }}<br>
+                {{ object.data }}<br>
+                {{ object.hora }}<br>
+                {{ object.datahora }}<br>
+                {{ object.duracao }}<br>
+                {{ object.arquivo }}<br>
+                {{ object.caminho_de_arquivo }}<br>
+                {{ object.imagem }}<br>
+            </div>
+        </div>
+    </div>
+{% endblock %}
