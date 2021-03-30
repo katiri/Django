@@ -17,12 +17,16 @@ class ClassView(TemplateView):
         context = super().get_context_data(**kwargs)
         context['title'] = 'Aprendendo Django'
         context['texto'] = 'Olá mundo com ClassView'
+        context['link'] = 'https://docs.djangoproject.com/en/3.0/ref/class-based-views/base/'
+        context['texto_link'] = 'Documentação de Views baseadas em classes'
         return context
 
 def DefView(request):
     context = {
         'title': 'Aprendendo Django',
         'texto': 'Olá mundo com DefView',
+        'link': 'https://docs.djangoproject.com/en/3.0/topics/http/shortcuts/',
+        'texto_link': 'Documentação de Views baseadas em funções'
     }
 
     return render(request, 'index.html', context)
