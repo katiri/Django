@@ -6,15 +6,18 @@
         <div class="row">
             <div class="col">
                 <h1>Exemplos</h1>
-                    {% for exemplo in object_list %}
-                        <div class="border px-3 ">
-                            <a alt="Ver exemplo {{ exemplo.slug }}" href="{% url 'LendoBancoItem' exemplo.slug %}">Ver item</a>
-                            <br>
-                            {{ exemplo.chave_unica }}
-                        </div>
-                    {% empty %}
-                        <div>Nenhum exemplo ainda.</div>
-                    {% endfor %}
+                <a alt="Criar novo exemplo" href="{% url 'ExemploCreate' %}">Criar item</a>
+                {% for exemplo in object_list %}
+                    <div class="border px-3">
+                        {{ exemplo.chave_unica }}
+                        <br>
+                        <a alt="Ver exemplo {{ exemplo.slug }}" href="{% url 'LendoBancoItem' exemplo.slug %}">Ver item</a> |
+                        <a alt="Atualizar exemplo {{ exemplo.slug }}" href="{% url 'ExemploUpdate' exemplo.slug %}">Atualizar item</a> |
+                        <a alt="Deletar exemplo {{ exemplo.slug }}" href="{% url 'ExemploDelete' exemplo.slug %}">Deletar item</a>
+                    </div>
+                {% empty %}
+                    <div>Nenhum exemplo ainda.</div>
+                {% endfor %}
             </div>
         </div>
     </div>

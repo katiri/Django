@@ -1,5 +1,6 @@
 import uuid
 from django.db import models
+from django import forms
 
 # documentação para campos https://docs.djangoproject.com/en/3.0/ref/models/fields/#field-types
 
@@ -61,8 +62,8 @@ class Exemplos(Base):
     # Um campo para armazenar períodos de tempo - modelado em Python por timedelta
     duracao = models.DurationField()
     # Um campo de upload de arquivo (nome-do-diretorio/novo-nome-do-arquivo)
-    arquivo = models.FileField(upload_to=None)
+    arquivo = models.FileField(upload_to='arquivos/', blank=True)
     # A CharField cujas escolhas são limitadas aos nomes de arquivos em um determinado diretório no sistema de arquivos (nome do diretorio)
     caminho_de_arquivo = models.FilePathField(path=None)
     # Herda todos os atributos e métodos de FileField, mas também valida se o objeto carregado é uma imagem válida. requer pip install Pillow e
-    imagem = models.ImageField(upload_to=None)
+    imagem = models.ImageField(upload_to='imagens/', blank=True)

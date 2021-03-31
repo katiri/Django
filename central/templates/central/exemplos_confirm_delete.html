@@ -1,0 +1,17 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block body %}
+    <div class="container my-5">
+        <div class="row">
+            <div class="col">
+                <form method="post">
+                    {% csrf_token %}
+                    <p>Tem certeza que quer deletar "{{ object }}"?</p>
+                    <input type="submit" value="Sim">
+                    <a alt="Voltar" href="{% url 'LendoBanco' %}">Cancelar</a>
+                </form>
+            </div>
+        </div>
+    </div>
+{% endblock %}

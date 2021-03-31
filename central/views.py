@@ -1,6 +1,7 @@
 from django.shortcuts import render
 from django.views.generic import *
 from .models import *
+from django.urls import reverse_lazy
 
 class IniciandoDjango(TemplateView):
     template_name = 'django-tutorial.html'
@@ -55,3 +56,64 @@ class LendoBancoItem(DetailView):
         context = super().get_context_data(**kwargs)
         context['title'] = 'Exibição de item'
         return context
+
+class ExemploCreate(CreateView):
+    model = Exemplos
+    fields = ['criados',
+              'ativo',
+              'chave_unica',
+              'inteiro',
+              'grande_inteiro',
+              'pequeno_inteiro',
+              'inteiro_positivo',
+              'grande_inteiro_positivo',
+              'pequeno_inteiro_positivo',
+              'num_float',
+              'num_decimal',
+              'booleano',
+              'frase',
+              'texto',
+              'email',
+              'link',
+              'slug',
+              'data',
+              'hora',
+              'datahora',
+              'duracao',
+              'arquivo',
+              'caminho_de_arquivo',
+              'imagem']
+    template_name_suffix = '_create'
+    success_url = reverse_lazy('LendoBanco')
+
+class ExemploUpdate(UpdateView):
+    model = Exemplos
+    fields = ['criados',
+              'chave_unica',
+              'inteiro',
+              'grande_inteiro',
+              'pequeno_inteiro',
+              'inteiro_positivo',
+              'grande_inteiro_positivo',
+              'pequeno_inteiro_positivo',
+              'num_float',
+              'num_decimal',
+              'booleano',
+              'frase',
+              'texto',
+              'email',
+              'link',
+              'slug',
+              'data',
+              'hora',
+              'datahora',
+              'duracao',
+              'arquivo',
+              'caminho_de_arquivo',
+              'imagem']
+    template_name_suffix = '_update'
+    success_url = reverse_lazy('LendoBanco')
+
+class ExemploDelete(DeleteView):
+    model = Exemplos
+    success_url = reverse_lazy('LendoBanco')
