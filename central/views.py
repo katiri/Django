@@ -2,6 +2,8 @@ from django.shortcuts import render
 from django.views.generic import *
 from .models import *
 from django.urls import reverse_lazy
+from .forms import *
+from django.contrib.auth.models import *
 
 class IniciandoDjango(TemplateView):
     template_name = 'django-tutorial.html'
@@ -117,3 +119,35 @@ class ExemploUpdate(UpdateView):
 class ExemploDelete(DeleteView):
     model = Exemplos
     success_url = reverse_lazy('LendoBanco')
+
+class CadastroDeUsuario(FormView):
+    template_name = 'cadastrouser.html'
+    form_class = FormCadastro
+    success_url = '/admin/'
+
+    def form_valid(self, form):
+        nome_usuario = form.cleaned_data['nome_usuario']
+        senha = form.cleaned_data['senha']
+        email = form.cleaned_data['email']
+        primeiro_nome = form.cleaned_data['primeiro_nome']
+        ultimo_nome = form.cleaned_data['ultimo_nome']
+
+        user = User.objects.create_user(username=nome_usuario, email=email, password=senha)
+        user.first_name = primeiro_nome
+        user.last_name = ultimo_nome
+        user.is_staff = True
+
+        perm1 = Permission.objects.get(codename='view_exemplos')
+        perm2 = Permission.objects.get(codename='add_exemplos')
+        perm3 = Permission.objects.get(codename='change_exemplos')
+        # perm4 = Permission.objects.get(codename='delete_exemplos')
+
+        user.user_permissions.add(perm1, perm2, perm3)
+
+        grupo = Group.objects.get(name='Grupo1')
+
+        user.groups.add(grupo)
+
+        user.save()
+
+        return super().form_valid(form)
