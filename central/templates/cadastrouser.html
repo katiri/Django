@@ -6,6 +6,20 @@
     <div class="container my-5">
         <div class="row">
             <div class="col">
+                <h1>Cadastro de usuários</h1>
+                Documentações usadas:<br>
+                <a alt="Documentação para sistema de autnticação" href="https://docs.djangoproject.com/en/3.1/ref/contrib/auth/#django.contrib.auth.models.Permission" target="_blank">
+                    Documentação para sistema de autnticação
+                </a>
+                <br>
+                <a alt="Exemplo de como aplicar permições e por consequência grupos" href="https://stackoverflow.com/questions/20361235/django-set-user-permissions-when-user-is-automatically-created-using-get-or-cr" target="_blank">
+                    Exemplo de como aplicar permições e por consequência grupos
+                </a>
+                <br>
+                <a alt="Documentação para formulários" href="https://docs.djangoproject.com/en/3.1/ref/forms/" target="_blank">
+                    Documentação para formulários
+                </a>
+                <br><br>
                 <form method="post" enctype="multipart/form-data">
                     {% csrf_token %}
                     {{ form|crispy }}
