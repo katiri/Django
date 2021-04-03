@@ -6,6 +6,7 @@
     <div class="container my-5">
         <div class="row">
             <div class="col">
+                <a alt="Voltar" href="{% url 'LendoBanco' %}">Voltar</a><br>
                 <form method="post" enctype="multipart/form-data">
                     {% csrf_token %}
                     {{ form|crispy }}

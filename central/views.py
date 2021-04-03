@@ -1,9 +1,12 @@
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 from django.views.generic import *
 from .models import *
 from django.urls import reverse_lazy
 from .forms import *
+from django.contrib.auth import *
 from django.contrib.auth.models import *
+from django.contrib.auth.mixins import *
+from django.contrib.auth.decorators import *
 
 class IniciandoDjango(TemplateView):
     template_name = 'django-tutorial.html'
@@ -42,7 +45,8 @@ class Git(TemplateView):
         context['title'] = 'Comandos Git'
         return context
 
-class LendoBanco(ListView):
+class LendoBanco(LoginRequiredMixin, ListView):
+    login_url = reverse_lazy('LoginDeUsuario')
     model = Exemplos
     paginate_by = 100
 
@@ -51,7 +55,8 @@ class LendoBanco(ListView):
         context['title'] = 'Exibição de lista'
         return context
 
-class LendoBancoItem(DetailView):
+class LendoBancoItem(LoginRequiredMixin, DetailView):
+    login_url = reverse_lazy('LoginDeUsuario')
     model = Exemplos
 
     def get_context_data(self, **kwargs):
@@ -59,36 +64,20 @@ class LendoBancoItem(DetailView):
         context['title'] = 'Exibição de item'
         return context
 
-class ExemploCreate(CreateView):
+class ExemploCreate(LoginRequiredMixin, CreateView):
+    login_url = reverse_lazy('LoginDeUsuario')
     model = Exemplos
-    fields = ['criados',
-              'ativo',
-              'chave_unica',
-              'inteiro',
-              'grande_inteiro',
-              'pequeno_inteiro',
-              'inteiro_positivo',
-              'grande_inteiro_positivo',
-              'pequeno_inteiro_positivo',
-              'num_float',
-              'num_decimal',
-              'booleano',
-              'frase',
-              'texto',
-              'email',
-              'link',
-              'slug',
-              'data',
-              'hora',
-              'datahora',
-              'duracao',
-              'arquivo',
-              'caminho_de_arquivo',
-              'imagem']
+    fields = '__all__'
     template_name_suffix = '_create'
     success_url = reverse_lazy('LendoBanco')
 
-class ExemploUpdate(UpdateView):
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['title'] = 'Criando exemplo'
+        return context
+
+class ExemploUpdate(LoginRequiredMixin, UpdateView):
+    login_url = reverse_lazy('LoginDeUsuario')
     model = Exemplos
     fields = ['criados',
               'chave_unica',
@@ -116,14 +105,30 @@ class ExemploUpdate(UpdateView):
     template_name_suffix = '_update'
     success_url = reverse_lazy('LendoBanco')
 
-class ExemploDelete(DeleteView):
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['title'] = 'Atualizando exemplo'
+        return context
+
+class ExemploDelete(LoginRequiredMixin, DeleteView):
+    login_url = reverse_lazy('LoginDeUsuario')
     model = Exemplos
     success_url = reverse_lazy('LendoBanco')
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['title'] = 'Deletando exemplo'
+        return context
 
 class CadastroDeUsuario(FormView):
     template_name = 'cadastrouser.html'
     form_class = FormCadastro
-    success_url = '/admin/'
+    success_url = reverse_lazy('LoginDeUsuario')
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['title'] = 'Cadastrando novo usuário'
+        return context
 
     def form_valid(self, form):
         nome_usuario = form.cleaned_data['nome_usuario']
@@ -151,3 +156,37 @@ class CadastroDeUsuario(FormView):
         user.save()
 
         return super().form_valid(form)
+
+class LoginDeUsuario(FormView):
+    template_name = 'login.html'
+    form_class = FormLogin
+
+    def get_success_url(self):
+        if self.request.GET.get('next'):
+            prox = self.request.GET.get('next')
+        else:
+            prox = '/'
+
+        return str(prox)
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['title'] = 'Login de usuário'
+        return context
+
+    def form_valid(self, form):
+        nome_usuario = form.cleaned_data['nome_usuario']
+        senha = form.cleaned_data['senha']
+
+        user = authenticate(self.request, username=nome_usuario, password=senha)
+        if user is not None:
+            login(self.request, user)
+        else:
+            print('deu errado')
+
+        return super().form_valid(form)
+
+@login_required(login_url='LoginDeUsuario')
+def LogoutDeUsuario(request):
+    logout(request)
+    return redirect('LoginDeUsuario')
