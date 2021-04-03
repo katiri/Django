@@ -1,0 +1,21 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block body %}
+    <div class="container my-5">
+        <div class="row">
+            <div class="col">
+                {{ t }}
+                {{ dados.username }}<br>
+                {{ dados.email }}<br>
+                <br>
+                {% for p in dados.get_user_permissions %}
+                    {{ p }}<br>
+                {% endfor %}
+                <a alt="Trocar senha" href="{% url 'TrocaDeSenha' %}">
+                    Trocar senha
+                </a>
+            </div>
+        </div>
+    </div>
+{% endblock %}

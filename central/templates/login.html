@@ -6,12 +6,17 @@
 <div class="container my-5">
     <div class="row">
         <div class="col">
-            <h1>Cadastro de usuários</h1>
+            <h1>Login</h1>
             Documentações usadas:<br>
             <a alt="Documentação para sistema de autnticação" href="https://docs.djangoproject.com/en/3.1/topics/auth/default/#authentication-in-web-requests" target="_blank">
                 Documentação para sistema de autnticação
             </a>
             <br><br>
+            {% for message in messages %}
+                <div class="alert alert-danger">
+                    {{ message }}
+                </div>
+            {% endfor %}
             <form method="post" enctype="multipart/form-data">
                 {% csrf_token %}
                 {{ form|crispy }}

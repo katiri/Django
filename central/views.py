@@ -3,6 +3,8 @@ from django.views.generic import *
 from .models import *
 from django.urls import reverse_lazy
 from .forms import *
+from django.contrib import messages
+from django.contrib.messages.views import *
 from django.contrib.auth import *
 from django.contrib.auth.models import *
 from django.contrib.auth.mixins import *
@@ -48,7 +50,6 @@ class Git(TemplateView):
 class LendoBanco(LoginRequiredMixin, ListView):
     login_url = reverse_lazy('LoginDeUsuario')
     model = Exemplos
-    paginate_by = 100
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
@@ -110,8 +111,9 @@ class ExemploUpdate(LoginRequiredMixin, UpdateView):
         context['title'] = 'Atualizando exemplo'
         return context
 
-class ExemploDelete(LoginRequiredMixin, DeleteView):
+class ExemploDelete(LoginRequiredMixin, PermissionRequiredMixin, DeleteView):
     login_url = reverse_lazy('LoginDeUsuario')
+    permission_required = 'exemplos.delete_exemplos'
     model = Exemplos
     success_url = reverse_lazy('LendoBanco')
 
@@ -181,12 +183,55 @@ class LoginDeUsuario(FormView):
         user = authenticate(self.request, username=nome_usuario, password=senha)
         if user is not None:
             login(self.request, user)
+            return super().form_valid(form)
         else:
-            print('deu errado')
-
-        return super().form_valid(form)
+            messages.error(self.request, 'Nome de usuário ou senha incorretos, favor tentar novamente.')
+            return super().form_invalid(form)
 
 @login_required(login_url='LoginDeUsuario')
 def LogoutDeUsuario(request):
     logout(request)
     return redirect('LoginDeUsuario')
+
+class DadosDoUsuario(LoginRequiredMixin, TemplateView):
+    login_url = reverse_lazy('LoginDeUsuario')
+    template_name = 'dadosdousuario.html'
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['title'] = 'Começando um projeto'
+        context['dados'] = User.objects.get(id=self.request.user.id)
+        context['t'] = dir(self.request.user)
+        return context
+
+class TrocaDeSenha(LoginRequiredMixin, FormView):
+    template_name = 'trocadesenha.html'
+    form_class = FormChangeSenha
+    success_url = reverse_lazy('DadosDoUsuario')
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['title'] = 'Troca de senha do usuário'
+        return context
+
+    def form_valid(self, form):
+        senha_antiga = form.cleaned_data['senha_antiga']
+        senha_nova = form.cleaned_data['senha_nova']
+        senha_nova_conf = form.cleaned_data['senha_nova_conf']
+
+        usuario = User.objects.get(id=self.request.user.id)
+
+        senha = authenticate(self.request, username=usuario.username, password=senha_antiga)
+
+        if senha is not None:
+            if senha_nova == senha_nova_conf:
+                usuario.set_password(senha_nova)
+                usuario.save()
+                logout(self.request)
+                return super().form_valid(form)
+            else:
+                messages.error(self.request, 'Erro na confirmação da senha nova.')
+                return super().form_invalid(form)
+        else:
+            messages.error(self.request, 'Senha antiga inválida.')
+            return super().form_invalid(form)
