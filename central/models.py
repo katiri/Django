@@ -12,7 +12,7 @@ class Base(models.Model):
     class Meta:
         abstract = True
 
-class Exemplos(Base):
+class Exemplo(Base):
     # Gera um id para cada linha
     # auto_campo = models.AutoField()
     # Id maior
@@ -67,3 +67,17 @@ class Exemplos(Base):
     caminho_de_arquivo = models.FilePathField(path=None)
     # Herda todos os atributos e métodos de FileField, mas também valida se o objeto carregado é uma imagem válida. requer pip install Pillow e
     imagem = models.ImageField(upload_to='imagens/', blank=True)
+
+# https://docs.djangoproject.com/en/3.0/ref/models/fields/#foreignkey
+
+class CamposRelacionado(Base):
+    # Um relacionamento muitos para um
+    chave_estrangeira = models.ForeignKey(Exemplo, on_delete=models.CASCADE, related_name='CamposRelacionado1', related_query_name='CamposRelacionado11')
+    # Para criar um relacionamento muitos para um consigo mesmo
+    chave_estrangeira_self = models.ForeignKey('self', on_delete=models.CASCADE, related_name='CamposRelacionado2', related_query_name='CamposRelacionado2', blank=True, null=True)
+    # Um relacionamento de muitos para muitos
+    muitos_para_muitos = models.ManyToManyField(Exemplo)
+    # Um relacionamento de muitos para muitos consigo mesmo
+    muitos_para_muitos_self = models.ManyToManyField('self', blank=True)
+    # Um relacionamento um para um
+    um_para_um =models.OneToOneField(to=Exemplo, on_delete=models.CASCADE, related_name='CamposRelacionado3', related_query_name='CamposRelacionado3')

@@ -49,7 +49,7 @@ class Git(TemplateView):
 
 class LendoBanco(LoginRequiredMixin, ListView):
     login_url = reverse_lazy('LoginDeUsuario')
-    model = Exemplos
+    model = Exemplo
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
@@ -58,7 +58,7 @@ class LendoBanco(LoginRequiredMixin, ListView):
 
 class LendoBancoItem(LoginRequiredMixin, DetailView):
     login_url = reverse_lazy('LoginDeUsuario')
-    model = Exemplos
+    model = Exemplo
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
@@ -67,7 +67,7 @@ class LendoBancoItem(LoginRequiredMixin, DetailView):
 
 class ExemploCreate(LoginRequiredMixin, CreateView):
     login_url = reverse_lazy('LoginDeUsuario')
-    model = Exemplos
+    model = Exemplo
     fields = '__all__'
     template_name_suffix = '_create'
     success_url = reverse_lazy('LendoBanco')
@@ -79,7 +79,7 @@ class ExemploCreate(LoginRequiredMixin, CreateView):
 
 class ExemploUpdate(LoginRequiredMixin, UpdateView):
     login_url = reverse_lazy('LoginDeUsuario')
-    model = Exemplos
+    model = Exemplo
     fields = ['criados',
               'chave_unica',
               'inteiro',
@@ -113,8 +113,8 @@ class ExemploUpdate(LoginRequiredMixin, UpdateView):
 
 class ExemploDelete(LoginRequiredMixin, PermissionRequiredMixin, DeleteView):
     login_url = reverse_lazy('LoginDeUsuario')
-    permission_required = 'exemplos.delete_exemplos'
-    model = Exemplos
+    permission_required = 'exemplo.delete_exemplo'
+    model = Exemplo
     success_url = reverse_lazy('LendoBanco')
 
     def get_context_data(self, **kwargs):
@@ -144,10 +144,10 @@ class CadastroDeUsuario(FormView):
         user.last_name = ultimo_nome
         user.is_staff = True
 
-        perm1 = Permission.objects.get(codename='view_exemplos')
-        perm2 = Permission.objects.get(codename='add_exemplos')
-        perm3 = Permission.objects.get(codename='change_exemplos')
-        # perm4 = Permission.objects.get(codename='delete_exemplos')
+        perm1 = Permission.objects.get(codename='view_exemplo')
+        perm2 = Permission.objects.get(codename='add_exemplo')
+        perm3 = Permission.objects.get(codename='change_exemplo')
+        # perm4 = Permission.objects.get(codename='delete_exemplo')
 
         user.user_permissions.add(perm1, perm2, perm3)
 
@@ -235,3 +235,19 @@ class TrocaDeSenha(LoginRequiredMixin, FormView):
         else:
             messages.error(self.request, 'Senha antiga inválida.')
             return super().form_invalid(form)
+
+class LendoCampoRelacionado(ListView):
+    model = CamposRelacionado
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['title'] = 'Exibição de campos relacionados'
+        return context
+
+class LendoCampoRelacionadoItem(DetailView):
+    model = CamposRelacionado
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['title'] = 'Exibição de campo relacionado item'
+        return context

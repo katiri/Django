@@ -29,6 +29,9 @@
                     <a class="nav-link text-white" href="{% url 'LendoBanco' %}">View's CRUD</a>
                 </li>
                 <li class="nav-item">
+                    <a class="nav-link text-white" href="{% url 'LendoCampoRelacionado' %}">Modelos relacionados</a>
+                </li>
+                <li class="nav-item">
                     <a class="nav-link text-white" href="{% url 'CadastroDeUsuario' %}">Cadastro de Usuário</a>
                 </li>
                 {% if not user.is_authenticated %}

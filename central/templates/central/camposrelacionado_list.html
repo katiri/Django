@@ -1,0 +1,27 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block body %}
+<div class="container my-5">
+    <div class="row">
+        <div class="col">
+            <h1>Campos</h1>
+            Documentações usadas:<br>
+            <a alt="Documentação para campos de relacionamento entre modelos" href="https://docs.djangoproject.com/en/3.0/ref/models/fields/#foreignkey" target="_blank">
+                Documentação para campos de relacionamento entre modelos
+            </a>
+            <br><br>
+            https://docs.djangoproject.com/en/3.0/ref/models/fields/#foreignkey
+            {% for campo in object_list %}
+                <div class="border px-3">
+                    {{ campo }}
+                    <br>
+                    <a alt="Ver exemplo {{ campo.id }}" href="{% url 'LendoCampoRelacionadoItem' campo.id %}">Ver item</a>
+                </div>
+            {% empty %}
+                <div>Nenhum campo ainda.</div>
+            {% endfor %}
+        </div>
+    </div>
+</div>
+{% endblock %}
