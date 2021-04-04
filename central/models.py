@@ -3,6 +3,7 @@ from django.db import models
 from django import forms
 
 # documentação para campos https://docs.djangoproject.com/en/3.0/ref/models/fields/#field-types
+# documentação para opções Meta dos modelos https://docs.djangoproject.com/en/3.0/ref/models/options/
 
 class Base(models.Model):
     criados = models.DateField('Criação')
@@ -68,6 +69,15 @@ class Exemplo(Base):
     # Herda todos os atributos e métodos de FileField, mas também valida se o objeto carregado é uma imagem válida. requer pip install Pillow e
     imagem = models.ImageField(upload_to='imagens/', blank=True)
 
+    class Meta:
+        verbose_name = 'Exemplo'
+        verbose_name_plural = 'Exemplos'
+        ordering = ['chave_unica']
+
+    # o que aparece na lista de consulta
+    def __str__(self):
+        return 'Exemplo [' + str(self.chave_unica) + ']'
+
 # https://docs.djangoproject.com/en/3.0/ref/models/fields/#foreignkey
 
 class CamposRelacionado(Base):
@@ -81,3 +91,10 @@ class CamposRelacionado(Base):
     muitos_para_muitos_self = models.ManyToManyField('self', blank=True)
     # Um relacionamento um para um
     um_para_um =models.OneToOneField(to=Exemplo, on_delete=models.CASCADE, related_name='CamposRelacionado3', related_query_name='CamposRelacionado3')
+
+    class Meta:
+        verbose_name = 'Modelo de relacionamento'
+        verbose_name_plural = 'Modelo de relacionamento'
+
+    def __str__(self):
+        return 'Chave estrangeira: ' + str(self.chave_estrangeira)
