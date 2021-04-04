@@ -25,27 +25,26 @@
                         <a class="dropdown-item" href="{% url 'DefIndex' %}">View baseada em função</a>
                     </div>
                 </li>
-                <li class="nav-item">
-                    <a class="nav-link text-white" href="{% url 'LendoBanco' %}">View's CRUD</a>
+                <li class="nav-item text-white dropdown">
+                    <a class="nav-link text-white dropdown-toggle" data-toggle="dropdown" href="#">Modelos</a>
+                    <div class="dropdown-menu">
+                        <a class="dropdown-item" href="{% url 'LendoBanco' %}">ClassBasedView's CRUD</a>
+                        <a class="dropdown-item" href="{% url 'ConsultaPersonalizada' %}">Consultando banco de dados</a>
+                        <a class="dropdown-item" href="{% url 'LendoCampoRelacionado' %}">Modelos relacionados</a>
+                    </div>
                 </li>
-                <li class="nav-item">
-                    <a class="nav-link text-white" href="{% url 'LendoCampoRelacionado' %}">Modelos relacionados</a>
+                <li class="nav-item text-white dropdown">
+                    <a class="nav-link text-white dropdown-toggle" data-toggle="dropdown" href="#">Usuário</a>
+                    <div class="dropdown-menu">
+                        {% if not user.is_authenticated %}
+                            <a class="dropdown-item" href="{% url 'CadastroDeUsuario' %}">Cadastro de Usuário</a>
+                            <a class="dropdown-item" href="{% url 'LoginDeUsuario' %}">Login de Usuário</a>
+                        {% else %}
+                            <a class="dropdown-item" href="{% url 'LogoutDeUsuario' %}">Logout de Usuário</a>
+                            <a class="dropdown-item" href="{% url 'DadosDoUsuario' %}">Dados do Usuário</a>
+                        {% endif %}
+                    </div>
                 </li>
-                <li class="nav-item">
-                    <a class="nav-link text-white" href="{% url 'CadastroDeUsuario' %}">Cadastro de Usuário</a>
-                </li>
-                {% if not user.is_authenticated %}
-                    <li class="nav-item">
-                        <a class="nav-link text-white" href="{% url 'LoginDeUsuario' %}">Login de Usuário</a>
-                    </li>
-                {% else %}
-                    <li class="nav-item">
-                        <a class="nav-link text-white" href="{% url 'LogoutDeUsuario' %}">Logout de Usuário</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link text-white" href="{% url 'DadosDoUsuario' %}">Dados do Usuário</a>
-                    </li>
-                {% endif %}
                 <li class="nav-item">
                     <a class="nav-link text-white" href="{% url 'ComandosGit' %}">Comandos Git</a>
                 </li>

@@ -1,0 +1,53 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block body %}
+    <div class="container my-5">
+        <div class="row">
+            <div class="col">
+                <h1>Consultas personalizadas no banco de dados</h1>
+                Documentações usadas:<br>
+                <a alt="Documentação para fazer consultas" href="https://docs.djangoproject.com/en/3.0/topics/db/queries/" target="_blank">
+                    Documentação para fazer consultas
+                </a>
+                <br><br>
+                {{ opções }}
+                <h3>Consultando tudo:</h3>
+                {% for e in exemplo1 %}
+                    {{ e }}<br>
+                {% endfor %}
+                <br>
+                <h3>Consultando item específico:</h3>
+                {{ exemplo2 }}<br>
+                <br>
+                <h3>Filtrando consulta:</h3>
+                {% for e in exemplo3 %}
+                    {{ e }}<br>
+                {% endfor %}
+                <br>
+                <h3>Ordenando consulta:</h3>
+                {% for e in exemplo4 %}
+                    {{ e }}<br>
+                {% endfor %}
+                <br>
+                <h3>Primeiro e último objetos da tabela:</h3>
+                Primeiro: {{ exemplo5 }}<br>
+                Último: {{ exemplo6 }}<br>
+                <br>
+                <h3>Contando os objetos</h3>
+                {{ exemplo7 }}<br>
+                <br>
+                <h3>Excluindo determinado item de uma consulta</h3>
+                {% for e in exemplo8 %}
+                    {{ e }}<br>
+                {% endfor %}
+                <br>
+                <h3>Limitando resultados de uma consulta</h3>
+                {% for e in exemplo9 %}
+                    {{ e }}<br>
+                {% endfor %}
+                <br>
+            </div>
+        </div>
+    </div>
+{% endblock %}

@@ -29,7 +29,7 @@ class ClassView(TemplateView):
         context['texto_link'] = 'Documentação de Views baseadas em classes'
         return context
 
-def DefView(request):
+def defview(request):
     context = {
         'title': 'Aprendendo Django',
         'texto': 'Olá mundo com DefView',
@@ -189,7 +189,7 @@ class LoginDeUsuario(FormView):
             return super().form_invalid(form)
 
 @login_required(login_url='LoginDeUsuario')
-def LogoutDeUsuario(request):
+def logoutdeusuario(request):
     logout(request)
     return redirect('LoginDeUsuario')
 
@@ -251,3 +251,51 @@ class LendoCampoRelacionadoItem(DetailView):
         context = super().get_context_data(**kwargs)
         context['title'] = 'Exibição de campo relacionado item'
         return context
+
+def consultapersonalizada(request):
+    # consultando tudo
+    exemplos1 = Exemplo.objects.all()
+    # consultando objeto específico
+    exemplos2 = Exemplo.objects.get(chave_unica='47d50c1c-59ff-40e1-ab26-2b845abe3a5a')
+    # filtrando consulta
+    exemplos3 = Exemplo.objects.filter(booleano=True)
+    # exemplos3 = Exemplo.objects.filter(frase__exact=teste) # correspondência exata
+    # exemplos3 = Exemplo.objects.filter(frase__iexact=Teste) # uma correspondência que não diferencia maiúsculas de minúsculas
+    # exemplos3 = Exemplo.objects.filter(frase__contains=est) # teste de contenção
+    # exemplos3 = Exemplo.objects.filter(frase__icontains=EsT) # teste de contenção sem distinção entre maiúsculas e minúsculas
+    # exemplos3 = Exemplo.objects.filter(frase__startwith=t) # começa com
+    # exemplos3 = Exemplo.objects.filter(frase__istartwith=T) # começa com, sem distinção entre maiúsculas e minúsculas
+    # exemplos3 = Exemplo.objects.filter(frase__endwith=e) # começa com
+    # exemplos3 = Exemplo.objects.filter(frase__iendwith=E) # termina com, sem distinção entre maiúsculas e minúsculas
+    # ordenando consulta (para inverter, podemos usar '-inteiro')
+    exemplos4 = Exemplo.objects.order_by('inteiro')
+    # consultando primeiro item da tabela
+    exemplos5 = Exemplo.objects.first()
+    # consultando último item da tabela
+    exemplos6 = Exemplo.objects.last()
+    # contando os objetos
+    exemplos7 = Exemplo.objects.count()
+    # excluindo determinado item de uma consulta
+    exemplos8 = Exemplo.objects.exclude(chave_unica='a73b4c8d-173e-4b8a-92e2-9b19b8c9a18c')
+    # limitando resultados de uma consulta
+    exemplos9 = Exemplo.objects.all()[:2] # dois primeiros
+    # exemplos9 = Exemplo.objects.all()[1:3] # do segundo ao terceiro objeto
+
+    # para mais exemplos consultar documentação https://docs.djangoproject.com/en/3.0/topics/db/queries/
+
+
+    context = {
+        'title': 'Consulta no banco personalizada',
+        # 'opções': dir(Exemplo.objects),
+        'exemplo1': exemplos1,
+        'exemplo2': exemplos2,
+        'exemplo3': exemplos3,
+        'exemplo4': exemplos4,
+        'exemplo5': exemplos5,
+        'exemplo6': exemplos6,
+        'exemplo7': exemplos7,
+        'exemplo8': exemplos8,
+        'exemplo9': exemplos9,
+    }
+
+    return render(request, 'consultapersonalizada.html', context)
