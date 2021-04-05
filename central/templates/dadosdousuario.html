@@ -5,16 +5,29 @@
     <div class="container my-5">
         <div class="row">
             <div class="col">
-                {{ t }}
-                {{ dados.username }}<br>
-                {{ dados.email }}<br>
-                <br>
-                {% for p in dados.get_user_permissions %}
-                    {{ p }}<br>
-                {% endfor %}
-                <a alt="Trocar senha" href="{% url 'TrocaDeSenha' %}">
-                    Trocar senha
-                </a>
+                {{ dir }}
+                <b>Username: </b>{{ dados.username }}<br>
+                <b>E-mail: </b>{{ dados.email }}<br>
+                <b>Primeiro nome: </b>{{ dados.first_name }}<br>
+                <b>Último nome: </b>{{ dados.last_name }}<br>
+                <b>Usuário ativo?: </b>{% if dados.is_active %}Sim{% else %}Não{% endif %}<br>
+                <b>É da equipe?: </b>{% if dados.is_staff %}Sim{% else %}Não{% endif %}<br>
+                <b>É super usuário?: </b>{% if dados.is_superuser %}Sim{% else %}Não{% endif %}<br>
+                {% if not dados.is_superuser %}
+                    <b>Permissões:</b><br>
+                    {% for p in dados.user_permissions.all %}
+                        {{ p.name }}<br>
+                    {% endfor %}
+                    <b>Grupos:</b><br>
+                    {% for g in dados.groups.all %}
+                        {{ g.name }}<br>
+                    {% endfor %}
+                {% endif %}
+                <div class="text-center">
+                    <a alt="Trocar senha" href="{% url 'TrocaDeSenha' %}" class="btn btn-primary">
+                        Trocar senha
+                    </a>
+                </div>
             </div>
         </div>
     </div>

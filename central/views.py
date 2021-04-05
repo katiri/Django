@@ -3,7 +3,6 @@ from django.views.generic import *
 from .models import *
 from django.urls import reverse_lazy
 from .forms import *
-from django.contrib import messages
 from django.contrib.messages.views import *
 from django.contrib.auth import *
 from django.contrib.auth.models import *
@@ -151,7 +150,7 @@ class CadastroDeUsuario(FormView):
 
         user.user_permissions.add(perm1, perm2, perm3)
 
-        grupo = Group.objects.get(name='Grupo1')
+        grupo = Group.objects.get(name='Apagadores de exemplos')
 
         user.groups.add(grupo)
 
@@ -201,7 +200,7 @@ class DadosDoUsuario(LoginRequiredMixin, TemplateView):
         context = super().get_context_data(**kwargs)
         context['title'] = 'Começando um projeto'
         context['dados'] = User.objects.get(id=self.request.user.id)
-        context['t'] = dir(self.request.user)
+        # context['dir'] = dir(self.request.user)
         return context
 
 class TrocaDeSenha(LoginRequiredMixin, FormView):
