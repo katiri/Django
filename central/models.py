@@ -1,6 +1,6 @@
 import uuid
 from django.db import models
-from django import forms
+from django.urls import reverse
 
 # documentação para campos https://docs.djangoproject.com/en/3.0/ref/models/fields/#field-types
 # documentação para opções Meta dos modelos https://docs.djangoproject.com/en/3.0/ref/models/options/
@@ -73,6 +73,10 @@ class Exemplo(Base):
         verbose_name = 'Exemplo'
         verbose_name_plural = 'Exemplos'
         ordering = ['chave_unica']
+
+    # url de exibição no site
+    def get_absolute_url(self):
+        return reverse('LendoBancoItem', args=[str(self.chave_unica)])
 
     # o que aparece na lista de consulta
     def __str__(self):

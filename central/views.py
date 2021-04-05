@@ -112,7 +112,7 @@ class ExemploUpdate(LoginRequiredMixin, UpdateView):
 
 class ExemploDelete(LoginRequiredMixin, PermissionRequiredMixin, DeleteView):
     login_url = reverse_lazy('LoginDeUsuario')
-    permission_required = 'exemplo.delete_exemplo'
+    permission_required = 'central.delete_exemplo'
     model = Exemplo
     success_url = reverse_lazy('LendoBanco')
 

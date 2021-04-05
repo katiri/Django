@@ -16,11 +16,11 @@
                 {% if not dados.is_superuser %}
                     <b>Permissões:</b><br>
                     {% for p in dados.user_permissions.all %}
-                        {{ p.name }}<br>
+                        &nbsp;&nbsp;&nbsp;&nbsp;{{ p.name }}<br>
                     {% endfor %}
                     <b>Grupos:</b><br>
                     {% for g in dados.groups.all %}
-                        {{ g.name }}<br>
+                        &nbsp;&nbsp;&nbsp;&nbsp;{{ g.name }}<br>
                     {% endfor %}
                 {% endif %}
                 <div class="text-center">
