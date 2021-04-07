@@ -63,7 +63,7 @@ class ExemplosAdmin(admin.ModelAdmin):
             'description': 'Campos de texto',
             # 'classes': ('collapse',),
             'fields': (
-                ('frase', 'slug', 'email', 'link'),
+                ('frase', 'slug', 'email', 'link', 'selecionar'),
                 'texto',
             )
         }),
