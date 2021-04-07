@@ -6,29 +6,33 @@
         <div class="row">
             <div class="col">
                 <a alt="Voltar" href="{% url 'LendoBanco' %}">Voltar</a><br>
-                {{ object.chave_unica }}<br>
-                {{ object.inteiro }}<br>
-                {{ object.grande_inteiro }}<br>
-                {{ object.pequeno_inteiro }}<br>
-                {{ object.inteiro_positivo }}<br>
-                {{ object.grande_inteiro_positivo }}<br>
-                {{ object.pequeno_inteiro_positivo }}<br>
-                {{ object.num_float }}<br>
-                {{ object.num_decimal }}<br>
-                {{ object.binario }}<br>
-                {{ object.booleano }}<br>
-                {{ object.frase }}<br>
-                {{ object.texto }}<br>
-                {{ object.email }}<br>
-                {{ object.link }}<br>
-                {{ object.slug }}<br>
-                {{ object.data }}<br>
-                {{ object.hora }}<br>
-                {{ object.datahora }}<br>
-                {{ object.duracao }}<br>
-                {{ object.arquivo }}<br>
-                {{ object.caminho_de_arquivo }}<br>
-                {{ object.imagem }}
+                <br>
+                <b>Chave única:</b> {{ object.chave_unica }}<br>
+                <b>Booleano:</b> {{ object.booleano }}<br>
+                <br>
+                <b>Inteiro:</b> {{ object.inteiro }}<br>
+                <b>Inteiro Grande:</b> {{ object.grande_inteiro }}<br>
+                <b>Inteiro pequeno:</b> {{ object.pequeno_inteiro }}<br>
+                <b>Inteiro positivo:</b> {{ object.inteiro_positivo }}<br>
+                <b>Inteiro grande positivo:</b> {{ object.grande_inteiro_positivo }}<br>
+                <b>Inteiro pequeno positivo:</b> {{ object.pequeno_inteiro_positivo }}<br>
+                <b>Número float:</b> {{ object.num_float }}<br>
+                <b>Número decimal:</b> {{ object.num_decimal }}<br>
+                <br>
+                <b>E-mail:</b> {{ object.email }}<br>
+                <b>Link:</b> {{ object.link }}<br>
+                <b>Slug:</b> {{ object.slug }}<br>
+                <b>Selecionar:</b> {{ object.selecionar }}<br>
+                <b>Frase:</b> {{ object.frase }}<br>
+                <b>Texto:</b> {{ object.texto }}<br>
+                <br>
+                <b>Data:</b> {{ object.data }}<br>
+                <b>Hora:</b> {{ object.hora }}<br>
+                <b>Data e hora:</b> {{ object.datahora }}<br>
+                <b>Duração de tempo (s):</b> {{ object.duracao }}<br>
+                <br>
+                <b>Arquivo:</b> {{ object.arquivo }}<br>
+                <b>Imagem:</b> {{ object.imagem }}
             </div>
         </div>
     </div>

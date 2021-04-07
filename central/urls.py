@@ -21,4 +21,5 @@ urlpatterns = [
     path('consultapersonalizada/', consultapersonalizada, name='ConsultaPersonalizada'),
     path('def/', defview, name='DefIndex'),
     path('git/', Git.as_view(), name='ComandosGit'),
+    path('mommy/', criandoExemplos, name='criandoExemplos'),
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

@@ -298,3 +298,10 @@ def consultapersonalizada(request):
     }
 
     return render(request, 'consultapersonalizada.html', context)
+
+def criandoExemplos(request):
+    from model_mommy import mommy
+    for i in range(12):
+        teste = mommy.make(CamposRelacionado)
+        teste.save()
+    return redirect('LendoBanco')

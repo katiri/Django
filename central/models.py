@@ -279,16 +279,16 @@ class Exemplo(Base):
         }
     )
     # A CharField cujas escolhas são limitadas aos nomes de arquivos em um determinado diretório no sistema de arquivos (nome do diretorio)
-    caminho_de_arquivo = models.FilePathField(
-        verbose_name='Selecione o caminho de um arquivo',
-        help_text='Selecione uma opção',
-        path=None,
-        error_messages={
-            'invalid': 'Valor inválido.',
-            'null': 'O campo não pode ser nulo.',
-            'blank': 'O campo não pode ser vazio.',
-        }
-    )
+    # caminho_de_arquivo = models.FilePathField(
+    #     verbose_name='Selecione o caminho de um arquivo',
+    #     help_text='Selecione uma opção',
+    #     path=None,
+    #     error_messages={
+    #         'invalid': 'Valor inválido.',
+    #         'null': 'O campo não pode ser nulo.',
+    #         'blank': 'O campo não pode ser vazio.',
+    #     }
+    # )
 
     class Meta:
         verbose_name = 'Exemplo'
