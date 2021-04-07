@@ -49,6 +49,7 @@ class Git(TemplateView):
 class LendoBanco(LoginRequiredMixin, ListView):
     login_url = reverse_lazy('LoginDeUsuario')
     model = Exemplo
+    paginate_by = 10
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
@@ -255,7 +256,7 @@ def consultapersonalizada(request):
     # consultando tudo
     exemplos1 = Exemplo.objects.all()
     # consultando objeto específico
-    exemplos2 = Exemplo.objects.get(chave_unica='47d50c1c-59ff-40e1-ab26-2b845abe3a5a')
+    exemplos2 = Exemplo.objects.get(chave_unica='001df884-b7c4-4d25-8a81-9912acaf4b09')
     # filtrando consulta
     exemplos3 = Exemplo.objects.filter(booleano=True)
     # exemplos3 = Exemplo.objects.filter(frase__exact=teste) # correspondência exata
@@ -275,9 +276,9 @@ def consultapersonalizada(request):
     # contando os objetos
     exemplos7 = Exemplo.objects.count()
     # excluindo determinado item de uma consulta
-    exemplos8 = Exemplo.objects.exclude(chave_unica='a73b4c8d-173e-4b8a-92e2-9b19b8c9a18c')
+    exemplos8 = Exemplo.objects.exclude(chave_unica='001df884-b7c4-4d25-8a81-9912acaf4b09')
     # limitando resultados de uma consulta
-    exemplos9 = Exemplo.objects.all()[:2] # dois primeiros
+    exemplos9 = Exemplo.objects.all()[:10] # dois primeiros
     # exemplos9 = Exemplo.objects.all()[1:3] # do segundo ao terceiro objeto
 
     # para mais exemplos consultar documentação https://docs.djangoproject.com/en/3.0/topics/db/queries/
@@ -300,8 +301,8 @@ def consultapersonalizada(request):
     return render(request, 'consultapersonalizada.html', context)
 
 def criandoExemplos(request):
-    from model_mommy import mommy
-    for i in range(12):
-        teste = mommy.make(CamposRelacionado)
-        teste.save()
+    # from model_mommy import mommy
+    # for i in range(12):
+    #     teste = mommy.make(CamposRelacionado)
+    #     teste.save()
     return redirect('LendoBanco')
