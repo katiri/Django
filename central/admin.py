@@ -159,6 +159,47 @@ class CamposRelacionadoAdmin(admin.ModelAdmin):
     # raw_id_fields = ('chave_estrangeira_self',)
 
 # adicionando novo modelo de usuários ao admin
+
+from django.contrib.auth.admin import UserAdmin
+
 @admin.register(CustomUsuario)
-class UsuariosAdmin(admin.ModelAdmin):
-    pass
+class UsuariosAdmin(UserAdmin):
+    add_fieldsets = (
+        ('Dados de autenticação', {
+            'fields': (
+                'email', 'password1', 'password2', 'is_staff', 'is_superuser', 'is_active',
+            ),
+        }),
+        ('Informações Pessoais', {
+            'fields': (
+                'first_name', 'last_name',
+            ),
+        }),
+        ('Permições e grupos', {
+            'fields': (
+                'groups', 'user_permissions',
+            ),
+        }),
+    )
+    fieldsets = (
+        ('Dados de autenticação', {
+            'fields': (
+                'email', 'password', 'is_staff', 'is_superuser', 'is_active',
+            ),
+        }),
+        ('Informações Pessoais', {
+            'fields': (
+                'first_name', 'last_name',
+            ),
+        }),
+        ('Registros', {
+            'fields': (
+                'last_login', 'date_joined',
+            ),
+        }),
+        ('Permições e grupos', {
+            'fields': (
+                'groups', 'user_permissions',
+            ),
+        }),
+    )
