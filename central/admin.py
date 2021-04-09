@@ -158,3 +158,7 @@ class CamposRelacionadoAdmin(admin.ModelAdmin):
     # raw_id_fieldsé uma lista de campos que você gostaria de transformar em um Inputwidget para um ForeignKey ou ManyToManyField
     # raw_id_fields = ('chave_estrangeira_self',)
 
+# adicionando novo modelo de usuários ao admin
+@admin.register(CustomUsuario)
+class UsuariosAdmin(admin.ModelAdmin):
+    pass

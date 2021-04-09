@@ -133,13 +133,14 @@ class CadastroDeUsuario(FormView):
         return context
 
     def form_valid(self, form):
-        nome_usuario = form.cleaned_data['nome_usuario']
+        # nome_usuario = form.cleaned_data['nome_usuario']
         senha = form.cleaned_data['senha']
         email = form.cleaned_data['email']
         primeiro_nome = form.cleaned_data['primeiro_nome']
         ultimo_nome = form.cleaned_data['ultimo_nome']
 
-        user = User.objects.create_user(username=nome_usuario, email=email, password=senha)
+        # user = CustomUsuario.objects.create_user(username=email, email=email, password=senha)
+        user = CustomUsuario.objects.create_user(email=email, password=senha)
         user.first_name = primeiro_nome
         user.last_name = ultimo_nome
         user.is_staff = True
@@ -147,13 +148,13 @@ class CadastroDeUsuario(FormView):
         perm1 = Permission.objects.get(codename='view_exemplo')
         perm2 = Permission.objects.get(codename='add_exemplo')
         perm3 = Permission.objects.get(codename='change_exemplo')
-        # perm4 = Permission.objects.get(codename='delete_exemplo')
+        perm4 = Permission.objects.get(codename='delete_exemplo')
 
-        user.user_permissions.add(perm1, perm2, perm3)
+        user.user_permissions.add(perm1, perm2, perm3, perm4)
 
-        grupo = Group.objects.get(name='Apagadores de exemplos')
+        # grupo = Group.objects.get(name='Apagadores de exemplos')
 
-        user.groups.add(grupo)
+        # user.groups.add(grupo)
 
         user.save()
 
@@ -200,7 +201,7 @@ class DadosDoUsuario(LoginRequiredMixin, TemplateView):
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         context['title'] = 'Começando um projeto'
-        context['dados'] = User.objects.get(id=self.request.user.id)
+        context['dados'] = CustomUsuario.objects.get(id=self.request.user.id)
         # context['dir'] = dir(self.request.user)
         return context
 
@@ -219,7 +220,7 @@ class TrocaDeSenha(LoginRequiredMixin, FormView):
         senha_nova = form.cleaned_data['senha_nova']
         senha_nova_conf = form.cleaned_data['senha_nova_conf']
 
-        usuario = User.objects.get(id=self.request.user.id)
+        usuario = CustomUsuario.objects.get(id=self.request.user.id)
 
         senha = authenticate(self.request, username=usuario.username, password=senha_antiga)
 
