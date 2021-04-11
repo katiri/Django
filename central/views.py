@@ -257,7 +257,7 @@ def consultapersonalizada(request):
     # consultando tudo
     exemplos1 = Exemplo.objects.all()
     # consultando objeto específico
-    exemplos2 = Exemplo.objects.get(chave_unica='001df884-b7c4-4d25-8a81-9912acaf4b09')
+    exemplos2 = Exemplo.objects.get(chave_unica='003ade70-c878-44e6-9ebb-a9806d27b73d')
     # filtrando consulta
     exemplos3 = Exemplo.objects.filter(booleano=True)
     # exemplos3 = Exemplo.objects.filter(frase__exact=teste) # correspondência exata
@@ -277,7 +277,7 @@ def consultapersonalizada(request):
     # contando os objetos
     exemplos7 = Exemplo.objects.count()
     # excluindo determinado item de uma consulta
-    exemplos8 = Exemplo.objects.exclude(chave_unica='001df884-b7c4-4d25-8a81-9912acaf4b09')
+    exemplos8 = Exemplo.objects.exclude(chave_unica='003ade70-c878-44e6-9ebb-a9806d27b73d')
     # limitando resultados de uma consulta
     exemplos9 = Exemplo.objects.all()[:10] # dois primeiros
     # exemplos9 = Exemplo.objects.all()[1:3] # do segundo ao terceiro objeto
@@ -302,8 +302,7 @@ def consultapersonalizada(request):
     return render(request, 'consultapersonalizada.html', context)
 
 def criandoExemplos(request):
-    # from model_mommy import mommy
-    # for i in range(12):
-    #     teste = mommy.make(CamposRelacionado)
-    #     teste.save()
+    from model_mommy import mommy
+    teste = mommy.make(Exemplo, _quantity=12)
+    teste.save()
     return redirect('LendoBanco')

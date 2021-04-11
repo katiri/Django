@@ -1,0 +1,21 @@
+# testanto apenas o projeto
+[run]
+source = .
+# omitindo alguns arquivos
+omit =
+    */__init__.py
+    */settings.py
+    */secret_variables.py
+    */asgi.py
+    */manage.py
+    */wsgi.py
+    */apps.py
+    */urls.py
+    */admin.py
+    */migrations/*
+    */tests/*
+    */venv/*
+
+# rodando testes -> coverage run manage.py test
+# relatório do coverage -> coverage report
+# criando relatório html -> coverage html -> cd htmlcov -> python -m http.server

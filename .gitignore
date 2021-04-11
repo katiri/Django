@@ -11,3 +11,4 @@ aprendendo_django/secret_variables.py
 venv/
 .idea/
 tutorial_django.txt
+htmlcov/
